@@ -23,10 +23,11 @@ def createLetters():
 	
 	l = Letter('A')
 	l.pos.append([00.0, 00.0])
-	l.pos.append([13.0, 26.0])
+	l.pos.append([00.0, 26.0])
+	l.pos.append([26.0, 26.0])
 	l.pos.append([26.0, 00.0])
-	l.pos.append([19.5, 13.5])
-	l.pos.append([06.5, 13.5])
+	l.pos.append([26.0, 13.0])
+	l.pos.append([00.0, 13.0])
 	l.pos.append([26.0, 00.0])
 	letters['A'] = l;
 
