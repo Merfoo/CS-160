@@ -26,12 +26,10 @@ def get_player_input(player):
 def determine_winner(p1_choice, p2_choice):
 	if p1_choice == p2_choice:
 		return None
-
-	modP1 = (p1_choice - 1) % 3
 	
-	if modP1 == p2_choice:
-		return p1_choice
+	if (p1_choice - 1) % 3 == p2_choice:	
+		return 1 # Player 1
 
-	return p2_choice
+	return 2 # Player 2
 
 main()
