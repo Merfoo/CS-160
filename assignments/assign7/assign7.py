@@ -30,7 +30,8 @@ def calculate_sum(nums):
 
 ################################################################################
 # Function: get_initial_input()
-# Description: Asks the user for the amount of tests, assignments, exercises and#			   labs in their course
+# Description: Asks the user for the amount of tests, assignments, exercises and
+#              labs in their course
 # Parameters: List containings the name for each amount of something
 # Return values: List containing amount tests, assignments, exercises and labs
 # Pre-Conditions: None
@@ -233,7 +234,7 @@ def main():
 					finalGrade = scores[-1] * finalWeight
 
 					if len(scores) > 1:
-						testScores = scores[:len(scores) - 2]
+						testScores = scores[:len(scores) - 1]
 						testGrade = calculate_weighted_avg(weight, testScores)
 
 					grade = finalGrade + testGrade
