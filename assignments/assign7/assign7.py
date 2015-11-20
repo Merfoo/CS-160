@@ -5,9 +5,9 @@
 # Author: Fauzi Kliman
 # Date: 11/15/15
 # Description: Calculates numeric grade in a class based on scores and weights
-# Input: None: Number of tests, assignments, exercises, labs, weight for final 
-#              if different, weight for each, scores for each
-# Ouput: None: Grade in classs
+# Input: Number of finals, tests, assignments, exercises, labs, weight for each,
+#        scores for each
+# Ouput: Grade in classs
 ################################################################################
 
 
@@ -16,8 +16,8 @@
 # Description: Calculates the sum of an array for numbers
 # Parameters: List of numbers
 # Return Values: Sum of list of numbers
-# Pre-Conditions: None
-# Post-Conditions: None
+# Pre-Conditions: nums should contain a list of numbers
+# Post-Conditions: Return the sum of all the values in the list
 ################################################################################
 def calculate_sum(nums):
     total = 0.0
@@ -34,7 +34,7 @@ def calculate_sum(nums):
 # Parameters: The string to display when asking for input
 # Return values: An int
 # Pre-Conditions: None
-# Post-Conditions: None
+# Post-Conditions: Return a valid int
 ################################################################################
 def get_int_input(display):
     while True:
@@ -52,7 +52,7 @@ def get_int_input(display):
 # Parameters: The string to display when asking for input
 # Return values: An float
 # Pre-Conditions: None
-# Post-Conditions: None
+# Post-Conditions: Return a valid float
 ################################################################################
 def get_float_input(display):
     while True:
@@ -69,23 +69,24 @@ def get_float_input(display):
 # Description: Asks the user for the amount of tests, assignments, exercises and
 #              labs in their course
 # Parameters: List containings the name for each amount of something
-# Return values: List containing amount tests, assignments, exercises and labs
-# Pre-Conditions: None
-# Post-Conditions: None
+# Return values: List containing amount finals,  tests, assignments, exercises
+#                and labs
+# Pre-Conditions: The names of all the categories
+# Post-Conditions: Return a list
 ################################################################################
 def get_initial_input(nameForEach):
-    numForEach = [0 for i in range(len(nameForEach))]
+    numForEach = [0] * len(nameForEach)
     
     for i in range(len(numForEach)):
         num = -1
     
         while True:
-            num = get_int_input("Number of " + nameForEach[i] + ": ")
+            num = get_int_input("Number of " + nameForEach[i] + "s: ")
 
             if num >= 0:
                 break
 
-            print("Invalid number of " + nameForEach[i] + "!")
+            print("Invalid number of " + nameForEach[i] + "s!")
 
         numForEach[i] = num
 
@@ -95,19 +96,19 @@ def get_initial_input(nameForEach):
 ################################################################################
 # Function: get_scores()
 # Description: Asks the user for all the scores
-# Parameters: Name for current scores, Number of scores to ask the user for
+# Parameters: Name for current scores, number of scores to ask the user for
 # Return values: List of scores
-# Pre-Conditions: None
-# Post-Conditions: None
+# Pre-Conditions: Name for current category, amount >= 0
+# Post-Conditions: Return list of scores >= 0
 ################################################################################
 def get_scores(name, amount):
-    scores = [0 for i in range(amount)]
+    scores = [0] * amount
 
     for i in range(amount):
         score = -1.0
 
         while True:
-            display = "The " + name + " score " + str(i + 1) + ": "
+            display = "Score for " + name + " " + str(i + 1) + ": "
             score = get_float_input(display)
 
             if score >= 0:
@@ -125,12 +126,12 @@ def get_scores(name, amount):
 # Description: Gets the weights for all the categories if amount is > 0
 # Parameters: Name of each category, amount for each category
 # Return values: List of weights for each category
-# Pre-Conditions: None
-# Post-Conditions: None
+# Pre-Conditions: Name of each category, amount of each >= 0
+# Post-Conditions: List of weights that sum to 1.0
 ################################################################################
 def get_weights(nameForEach, amountForEach):
     weightSum = 0.0
-    weightForEach = [0.0 for i in range(len(nameForEach))]
+    weightForEach = [0.0] * len(nameForEach)
 
     while True:
         weightSum = 0.0
@@ -143,7 +144,7 @@ def get_weights(nameForEach, amountForEach):
             weight = -1.0
 
             while True:
-                display = "Weight for " + nameForEach[i] + ": "
+                display = "Weight for " + nameForEach[i] + "s: "
                 weight = get_float_input(display)
 
                 if weight > 0.0:
@@ -160,10 +161,10 @@ def get_weights(nameForEach, amountForEach):
 
             weightForEach[i] = weight
 
-        if validWeightSum:
+        if validWeightSum and weightSum == 1.0:
             break
 
-        print("The weight sum can't be over 100!")
+        print("The weights must sum to 100!")
 
     return weightForEach
 
@@ -174,8 +175,8 @@ def get_weights(nameForEach, amountForEach):
 #              a weight constant
 # Parameters: Weight constant, list of scores
 # Return values: Weighted avg of scores
-# Pre-Conditions: None
-# Post-Conditions: None
+# Pre-Conditions: Weight > 0, scores >= 0
+# Post-Conditions: Average >= 0
 ################################################################################
 def calculate_weighted_avg(weight, scores):
     total = calculate_sum(scores)
@@ -188,8 +189,8 @@ def calculate_weighted_avg(weight, scores):
 #              weight constant
 # Parameters: Weight constant, list of scores
 # Return values: Weighted sum of scores 
-# Pre-Conditions: None
-# Post-Conditions: None
+# Pre-Conditions: Weight > 0, scores >= 0
+# Post-Conditions: Sum >= 0
 ################################################################################
 def calculate_weighted_sum(weight, scores):
     total = calculate_sum(scores)
@@ -202,8 +203,8 @@ def calculate_weighted_sum(weight, scores):
 #              grades
 # Parameters: List of grades
 # Return values: Sum of list of grades
-# Pre-Conditions: None
-# Post-Conditions: None
+# Pre-Conditions: Grade for each category >= 0
+# Post-Conditions: Class grade >= 0
 ################################################################################
 def calculate_class_grade(gradeForEach):
     grade = calculate_sum(gradeForEach)
@@ -220,37 +221,12 @@ def calculate_class_grade(gradeForEach):
 # Post-Conditions: None
 ################################################################################
 def main():
-    nameForEach = ["tests", "assignments", "exercises", "labs"]
+    nameForEach = ["final", "test", "assignment", "exercise", "lab"]
     
     while True:
         amountForEach = get_initial_input(nameForEach)  
-        gradeForEach = [0 for i in range(len(amountForEach))]
-        finalWeight = -1.0;
-        weightForEach = []
-
-        while True: 
-            weightForEach = get_weights(nameForEach, amountForEach)
-
-            if amountForEach[0] > 0:
-                while True:
-                    display = "Weight for Final (-1 if same as tests): "
-                    finalWeight = get_float_input(display)
-                
-                    if finalWeight == -1.0 or finalWeight > 0:
-                        break
-
-                    print("Invalid weight for Final!")
-
-            weightSum = calculate_sum(weightForEach)            
-            
-            if finalWeight == -1.0 and weightSum == 1.0:
-                break
-
-            elif weightSum + (finalWeight / 100) == 1.0:
-                finalWeight /= 100
-                break
-
-            print("The weight must sum to exactly 100.0, not over, not under!")
+        weightForEach = get_weights(nameForEach, amountForEach)
+        gradeForEach = [0] * len(amountForEach)
 
         for i in range(len(amountForEach)):
             if amountForEach[i] == 0:
@@ -263,20 +239,6 @@ def main():
             if nameForEach[i] == "labs":
                 grade = calculate_weighted_sum(weight, scores)
     
-            elif nameForEach[i] == "tests":
-                if finalWeight != -1.0:
-                    testGrade = 0
-                    finalGrade = scores[-1] * finalWeight
-
-                    if len(scores) > 1:
-                        testScores = scores[:len(scores) - 1]
-                        testGrade = calculate_weighted_avg(weight, testScores)
-
-                    grade = finalGrade + testGrade
-            
-                else:
-                    grade = calculate_weighted_avg(weight, scores)
-
             else:
                 grade = calculate_weighted_avg(weight, scores)
 
