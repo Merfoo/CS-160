@@ -7,25 +7,8 @@
 # Description: Calculates numeric grade in a class based on scores and weights
 # Input: Number of finals, tests, assignments, exercises, labs, weight for each,
 #        scores for each
-# Ouput: Grade in classs
+# Ouput: Grade in class
 ################################################################################
-
-
-################################################################################
-# Function: calculate_sum()
-# Description: Calculates the sum of an array for numbers
-# Parameters: List of numbers
-# Return Values: Sum of list of numbers
-# Pre-Conditions: nums should contain a list of numbers
-# Post-Conditions: Return the sum of all the values in the list
-################################################################################
-def calculate_sum(nums):
-    total = 0.0
-    
-    for val in nums:
-        total += val
-
-    return total
 
 
 ################################################################################
@@ -39,8 +22,7 @@ def calculate_sum(nums):
 def get_int_input(display):
     while True:
         try:
-            response = int(input(display))
-            return response
+            return int(input(display))
 
         except ValueError:
             print("Invalid number!")
@@ -57,8 +39,7 @@ def get_int_input(display):
 def get_float_input(display):
     while True:
         try:
-            response = float(input(display))
-            return response
+            return float(input(display))
 
         except ValueError:
             print("Invalid number!")
@@ -130,7 +111,6 @@ def get_scores(name, amount):
 # Post-Conditions: List of weights that sum to 1.0
 ################################################################################
 def get_weights(nameForEach, amountForEach):
-    weightSum = 0.0
     weightForEach = [0.0] * len(nameForEach)
 
     while True:
@@ -179,7 +159,7 @@ def get_weights(nameForEach, amountForEach):
 # Post-Conditions: Average >= 0
 ################################################################################
 def calculate_weighted_avg(weight, scores):
-    total = calculate_sum(scores)
+    total = sum(scores)
     return (total / len(scores)) * weight
 
 
@@ -193,7 +173,7 @@ def calculate_weighted_avg(weight, scores):
 # Post-Conditions: Sum >= 0
 ################################################################################
 def calculate_weighted_sum(weight, scores):
-    total = calculate_sum(scores)
+    total = sum(scores)
     return total * weight
 
 
@@ -207,7 +187,7 @@ def calculate_weighted_sum(weight, scores):
 # Post-Conditions: Class grade >= 0
 ################################################################################
 def calculate_class_grade(gradeForEach):
-    grade = calculate_sum(gradeForEach)
+    grade = sum(gradeForEach)
     grade = (((grade + 0.005) * 100) // 1) / 100
     return grade
 
@@ -236,7 +216,7 @@ def main():
             scores = get_scores(nameForEach[i], amountForEach[i])
             grade = 0
 
-            if nameForEach[i] == "labs":
+            if nameForEach[i] == "lab":
                 grade = calculate_weighted_sum(weight, scores)
     
             else:
